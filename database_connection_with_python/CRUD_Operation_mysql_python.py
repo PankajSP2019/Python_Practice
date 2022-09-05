@@ -134,6 +134,61 @@ def delete_data(db_object):
 # end delete function
 
 
+# Read Function
+
+def read_op(mydb):
+    """# here have many print data style
+    # https://stackoverflow.com/questions/9535954/printing-lists-as-tabular-data
+
+
+    # PrettyTable: https://pypi.python.org/pypi/PrettyTable
+    from prettytable import PrettyTable
+    t = PrettyTable(['Name', 'Age'])
+    t.add_row(['Alice', 24])
+    t.add_row(['Bob', 19])
+        print(t)
+
+    # tabulate
+    from tabulate import tabulate
+    print(tabulate(result)) # result is a list
+    # print(tabulate([['Alice', 24], ['Bob', 19]], headers=['Name', 'Age'], tablefmt='orgtbl'))"""
+
+    table_field_name = list()  # name of fields of selected table, will store in this list for printing purpose
+    print("-------------------------------------------------------")
+    table_nm = input("Enter Table Name : ")
+    print("-------------------------------------------------------")
+
+    print(f"\n                Showing All Data Of Table ({table_nm})\n")
+
+    # Information of Table
+    mycursor1 = mydb.cursor()
+    query1 = f"DESC {table_nm}"
+    mycursor1.execute(query1)
+    result1 = mycursor1.fetchall()
+    # print(result1) # for check
+
+    # all the table field name store in a list
+    for i in result1:
+        table_field_name.append(i[0])
+
+    # print(table_field_name) # for checking
+
+    # Data of table
+    mycursor = mydb.cursor()
+    query = f"SELECT * FROM {table_nm}"
+    mycursor.execute(query)
+    result = mycursor.fetchall()
+    # print(result) # for check
+
+    # print all the information of table using, PrettyTable, a python module
+    from prettytable import PrettyTable
+    t = PrettyTable(table_field_name)
+    for i in result:
+        t.add_row(i)
+    print(t)
+
+# End Read Function
+
 # Update Function
 # It will update specific value , by the help of primary key
 
@@ -295,9 +350,9 @@ a = input("Do you want to connect with MySQL Server(type y for yes) : ")
 print("----------------------------------------------------------------------------------")
 
 if a == "y":
-    host_name = "localhost"  # input("Enter host Name : ")
-    user_name = "root"  # input("Enter user Name : ")
-    password = "1234"  # input("Enter Password : ")
+    host_name = input("Enter host Name : ")
+    user_name = input("Enter user Name : ")
+    password = input("Enter Password : ")
     data_base = input("Enter Specific Database Name : ")
 else:
     print("Thanks For Being With us !!!!!")
@@ -328,7 +383,7 @@ try:
         elif st == "2":
             delete_data(mydb)
         elif st == "3":
-            print("Not Yet Developed")
+            read_op(mydb)
         elif st == "4":
             update_op(mydb)
         elif st == "5":
