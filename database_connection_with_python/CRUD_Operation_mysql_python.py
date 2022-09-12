@@ -57,6 +57,7 @@ def insert_data(db_object):
     # print(result)
 
 
+
 # end insert function
 
 # Function for Delete Data from database
