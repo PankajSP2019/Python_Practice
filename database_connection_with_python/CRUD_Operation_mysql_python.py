@@ -24,19 +24,21 @@ def insert_data(db_object):
     # print(result)
     column_name_list = list()  # will store all cloumn name of table
     value_list = list()  # will store values(user input) which user want to insert to database table
-
+    value_query_list = list()  # for query write , how many value with insert (%s)
     for i in result:
         if 'auto_increment' not in i:  # auto_increment will add automatically in the column
             column_name_list.append(i[0])  # add column name into list
             aaa = input(f"Enter {i[0]} : ")  # user input for column's value
             value_list.append(aaa)  # add user input into list
+            value_query_list.append("%s")  # add %s in a list , it needed to write query for insert value
 
     # column_name_tuple = tuple(column_name_list)
 
     column_names = ",".join(column_name_list)  # convert column name's list in string with ","
+    value_s_list_query = ",".join(value_query_list)  # convert %s's list in string with "," , we need this to insert value
 
     # Insert into table
-    query1 = f"INSERT INTO {table_name}({column_names}) VALUES(%s, %s)"
+    query1 = f"INSERT INTO {table_name}({column_names}) VALUES({value_s_list_query})"
     values1 = tuple(value_list)
     mycursor.execute(query1, values1)
     db_object.commit()
@@ -186,6 +188,7 @@ def read_op(mydb):
     for i in result:
         t.add_row(i)
     print(t)
+
 
 # End Read Function
 
