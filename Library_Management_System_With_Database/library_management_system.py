@@ -135,9 +135,29 @@ class library:
     # End Add book function by admin
 
     def borrowBook(self):
-        pass
+        """
+        Customer, Reader, Visitor borrow book from library. 1st customer have entered book id which he/she want to borrow
+        Then the system will check if the entered book is available or not in the library. if available then he/she can borrow the
+        book. And all the details will save in the borrowdetails database table and a update will occure in quantity/copies of books
+        in the available book list , bookdetails database library
+
+        """
+        while True:
+            try:
+                pass
+
+            except Exception as e:
+                print("...............................................................")
+                print(e)
+                print("Something is wrong..Try again.")
+                h1 = input("Want to Continue ?(Type 0 for YES) : ")
+                print("...............................................................")
+                if h1 == '0':
+                    continue
+                else:
+                    break
 
 
 if __name__ == '__main__':
     lib = library()
-    lib.donateBook()
+    lib.borrowBook()
