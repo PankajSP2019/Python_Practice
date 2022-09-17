@@ -100,12 +100,17 @@ class library:
                 c1 = int(input("How Many Book You want to add : "))
                 all_value_list = list()
                 for i in range(c1):
+                    status = ""
                     temp = list()
                     print(f"--------------{i + 1}--------------")
                     bookName = input("Enter Book Name : ")
                     author_name = input("Enter Author Name : ")
                     quntity = int(input("How Many Copy(Int value) : "))
-                    status = "Available"
+                    if quntity > 0:
+                        status = "Available"
+                    else:
+                        status = "Not Available"
+
                     addBy = "admin"
                     temp.extend([bookName, author_name, quntity, status,
                                  addBy])  # extend([]) insert multiple values in a list at a time
@@ -142,9 +147,36 @@ class library:
         in the available book list , bookdetails database library
 
         """
+        print("You Can Borrow Maximum 5  Books at a time and 1 copies from each book")
+
+        # fetch all information, will need later
+        mycursor4 = self.mydb.cursor()
+        query = "select * from bookdetails where status = 'Available'"
+        mycursor4.execute(query)
+        result_bookdetails = mycursor4.fetchall()  # all information of bookdetails table
+        result1_bookdetails_id = [i[0] for i in result_bookdetails]  # only the book_id's of bookdetails table in a list
+
         while True:
+
             try:
-                pass
+                print("...............................................................")
+                C_name = input("Enter Your Name : ")
+                mobile = input("Enter Your Mobile Number : ")
+                email1 = input("Enter Your Email Address : ")
+                b_date = datetime.now().date()
+                c2 = int(input("How Many Book want to borrow ?(not more than 5) : "))
+                print("...............................................................")
+
+                vaild_book_id_list = list()
+                for i in range(c2):
+                    print(f"--------------{i + 1}--------------")
+                    b_id = int(input("Enter Book ID (INT Number) :"))
+                    if b_id in result1_bookdetails_id:
+                        vaild_book_id_list.append(b_id)
+                    else:
+                        print("...............................................................")
+                        print("Opps, You Entered Wrong Book ID\nOR the Book is not available right now")
+                        print("...............................................................")
 
             except Exception as e:
                 print("...............................................................")
