@@ -164,19 +164,39 @@ class library:
                 mobile = input("Enter Your Mobile Number : ")
                 email1 = input("Enter Your Email Address : ")
                 b_date = datetime.now().date()
-                c2 = int(input("How Many Book want to borrow ?(not more than 5) : "))
-                print("...............................................................")
 
-                vaild_book_id_list = list()
-                for i in range(c2):
-                    print(f"--------------{i + 1}--------------")
-                    b_id = int(input("Enter Book ID (INT Number) :"))
-                    if b_id in result1_bookdetails_id:
-                        vaild_book_id_list.append(b_id)
+                print("...............................................................")
+                # a feature, a customer identify by his/her mobile number
+                # if he/she already borrow 5 books he can not borrow more books
+                # he/she have to return pervious borrow
+
+                valid_borrow_book_id_list = list()
+                while True:
+                    print("...............................................................")
+                    c2 = int(input("How Many Book want to borrow ?(not more than 5) : "))
+                    if 5 >= c2 > 0:
+                        for i in range(c2):
+                            print(f"--------------{i + 1}--------------")
+                            b_id = int(input("Enter Book ID (INT Number) :"))
+                            if b_id in result1_bookdetails_id:
+                                valid_borrow_book_id_list.append(b_id)
+                            else:
+                                print("...............................................................")
+                                print("Opps, You Entered Wrong Book ID\nOR the Book is not available right now")
+                                print("...............................................................")
+                        break
                     else:
                         print("...............................................................")
-                        print("Opps, You Entered Wrong Book ID\nOR the Book is not available right now")
+                        print("Wrong Input\nPlease try again\nYou can not borrow more than 5 books")
+                        h2 = input("Want to Continue ?(Type 0 for YES) : ")
                         print("...............................................................")
+                        if h2 == '0':
+                            continue
+                        else:
+                            break
+
+                print(valid_borrow_book_id_list)
+                break  # main loop
 
             except Exception as e:
                 print("...............................................................")
