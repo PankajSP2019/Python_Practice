@@ -171,6 +171,8 @@ class library:
                 # he/she have to return pervious borrow
 
                 valid_borrow_book_id_list = list()
+                valid_borrow_book_name_list = list()
+                book_id_and_book_name = list()
                 while True:
                     print("...............................................................")
                     c2 = int(input("How Many Book want to borrow ?(not more than 5) : "))
@@ -178,11 +180,16 @@ class library:
                         for i in range(c2):
                             print(f"--------------{i + 1}--------------")
                             b_id = int(input("Enter Book ID (INT Number) :"))
-                            if b_id in result1_bookdetails_id:
+                            if (b_id in result1_bookdetails_id) and (b_id not in valid_borrow_book_id_list):
                                 valid_borrow_book_id_list.append(b_id)
+                                # store valid and borrowed book names in a list
+                                for k in result_bookdetails:
+                                    if b_id == k[0]:
+                                        valid_borrow_book_name_list.append(k[1])
                             else:
                                 print("...............................................................")
-                                print("Opps, You Entered Wrong Book ID\nOR the Book is not available right now")
+                                print(
+                                    "Opps, You Entered Wrong Book ID\nOR the Book is not available right now\nAlready Entered this ID")
                                 print("...............................................................")
                         # show selected books
                         from prettytable import PrettyTable
@@ -194,8 +201,15 @@ class library:
                         print("You Select : ")
                         print(t)
 
-                        break
+                        book_id_and_book_name = zip(valid_borrow_book_id_list, valid_borrow_book_name_list)
 
+                        # next work will in here
+                        # database query implementation
+                        for i in valid_borrow_book_id_list:
+                            mycursor5 = self.mydb.cursor()
+                            # query = f"UPDATE {} SET {} = '{}' WHERE {} = {}"
+
+                        break
                     else:
                         print("...............................................................")
                         print("Wrong Input\nPlease try again\nYou can not borrow more than 5 books")
@@ -206,7 +220,9 @@ class library:
                         else:
                             break
 
-                # print(valid_borrow_book_id_list)
+                """print(valid_borrow_book_id_list)
+                print(valid_borrow_book_name_list)
+                print(list(book_id_and_book_name))"""
                 break  # main loop
 
             except Exception as e:
