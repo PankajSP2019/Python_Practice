@@ -151,7 +151,7 @@ class library:
 
         # fetch all information, will need later
         mycursor4 = self.mydb.cursor()
-        query = "select * from bookdetails where status = 'Available'"
+        query = "select book_id,book_name,author_name,quatity from bookdetails where status = 'Available'"
         mycursor4.execute(query)
         result_bookdetails = mycursor4.fetchall()  # all information of bookdetails table
         result1_bookdetails_id = [i[0] for i in result_bookdetails]  # only the book_id's of bookdetails table in a list
@@ -160,9 +160,9 @@ class library:
 
             try:
                 print("...............................................................")
-                C_name = input("Enter Your Name : ")
+                """C_name = input("Enter Your Name : ")
                 mobile = input("Enter Your Mobile Number : ")
-                email1 = input("Enter Your Email Address : ")
+                email1 = input("Enter Your Email Address : ")"""
                 b_date = datetime.now().date()
 
                 print("...............................................................")
@@ -184,6 +184,16 @@ class library:
                                 print("...............................................................")
                                 print("Opps, You Entered Wrong Book ID\nOR the Book is not available right now")
                                 print("...............................................................")
+                        # show selected books
+                        from prettytable import PrettyTable
+                        t = PrettyTable(["BOOK_ID", "BOOK_NAME", "AUTHOR_NAME", "AVAILABLE_COPIES"])
+                        for i in valid_borrow_book_id_list:
+                            for j in result_bookdetails:
+                                if i == j[0]:
+                                    t.add_row(j)
+                        print("You Select : ")
+                        print(t)
+
                         break
                     else:
                         print("...............................................................")
@@ -195,7 +205,7 @@ class library:
                         else:
                             break
 
-                print(valid_borrow_book_id_list)
+                # print(valid_borrow_book_id_list)
                 break  # main loop
 
             except Exception as e:
