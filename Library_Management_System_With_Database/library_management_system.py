@@ -5,6 +5,14 @@ Purpose : Build a Console baseLibrary Management System with Database and using 
 Project Name : Library Management System
 """
 
+"""
+Work list
+
+Next work is - At a time if the quantity of a book becomes 0 then the status of the book will automatically
+changed(updated)  to Not Available in the database.
+
+"""
+
 import mysql.connector as db
 from datetime import datetime
 
@@ -160,18 +168,21 @@ class library:
 
             try:
                 print("...............................................................")
-                """C_name = input("Enter Your Name : ")
+                C_name = input("Enter Your Name : ")
                 mobile = input("Enter Your Mobile Number : ")
-                email1 = input("Enter Your Email Address : ")"""
+                email1 = input("Enter Your Email Address : ")
                 b_date = datetime.now().date()
 
                 print("...............................................................")
                 # a feature, a customer identify by his/her mobile number
                 # if he/she already borrow 5 books he can not borrow more books
                 # he/she have to return pervious borrow
+                # collect mobile from borrowdetails table then identify by count() function
+                # if count("mobile_number") > 5 , cannot borrowbook
 
                 valid_borrow_book_id_list = list()
                 valid_borrow_book_name_list = list()
+                valid_borrow_book_quantity_list = list()
                 book_id_and_book_name = list()
                 while True:
                     print("...............................................................")
@@ -186,6 +197,7 @@ class library:
                                 for k in result_bookdetails:
                                     if b_id == k[0]:
                                         valid_borrow_book_name_list.append(k[1])
+                                        valid_borrow_book_quantity_list.append(k[3])
                             else:
                                 print("...............................................................")
                                 print(
@@ -201,15 +213,28 @@ class library:
                         print("You Select : ")
                         print(t)
 
-                        book_id_and_book_name = zip(valid_borrow_book_id_list, valid_borrow_book_name_list)
+                        book_id_and_book_name_and_quantity = zip(valid_borrow_book_id_list, valid_borrow_book_name_list,
+                                                                 valid_borrow_book_quantity_list)
+                        # book_id_and_book_name = ((ID, BOOK_NAME, QUANTITY))
 
                         # next work will in here
                         # database query implementation
-                        for i in valid_borrow_book_id_list:
+                        for k in book_id_and_book_name_and_quantity:
                             mycursor5 = self.mydb.cursor()
-                            # query = f"UPDATE {} SET {} = '{}' WHERE {} = {}"
+                            query = f"INSERT INTO borrowdetails(book_id, book_name, borrow_date, customer_name, mobile, email) VALUES({k[0]} , '{k[1]}' , '{b_date}' , '{C_name}' , '{mobile}' , '{email1}')"
+                            mycursor5.execute(query)
+                            self.mydb.commit()
 
+                            mycursor6 = self.mydb.cursor()
+                            query = f"UPDATE bookdetails SET quatity = {k[2] - 1} WHERE book_id = {k[0]}"
+                            mycursor6.execute(query)
+                            self.mydb.commit()
+
+                        print("...............................................................")
+                        print("Successfully Borrowed\nThanks for being with us")
+                        print("...............................................................")
                         break
+
                     else:
                         print("...............................................................")
                         print("Wrong Input\nPlease try again\nYou can not borrow more than 5 books")
