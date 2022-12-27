@@ -13,6 +13,8 @@ changed(updated)  to Not Available in the database.
 
 """
 
+
+
 import mysql.connector as db
 from datetime import datetime
 
