@@ -1,0 +1,8 @@
+
+{"pc_number": 2, "operating_system": "linux", "status": "ok"}
+{"pc_number": 3, "operating_system": "Windows 7", "status": ["keyboard problem", "windows down"]}
+{"pc_number": 5, "operating_system": "windows", "status": "ok"}
+{"pc_number": 6, "operating_system": "windows", "status": "ok"}
+{"pc_number": 7, "operating_system": "linux", "status": "ok"}
+{"pc_number": 8, "operating_system": "linux", "status": "ok"}
+{"pc_number": 9, "operating_system": "linux", "status": "ok"}
