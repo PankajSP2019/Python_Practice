@@ -75,4 +75,5 @@ for i in output:
     for key, item in i.items():
         print(f"{key} : {item}")
 
+"hello From local"
 
