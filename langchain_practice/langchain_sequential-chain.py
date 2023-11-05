@@ -7,7 +7,7 @@ from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 
-OPENAI_API_KEY = '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'
+OPENAI_API_KEY = ''
 
 # This is an LLM chain to write a synopsis(summarizes the plot, main characters, locations, and text of a play) given title of a play(drama) and the era it is set in.
 

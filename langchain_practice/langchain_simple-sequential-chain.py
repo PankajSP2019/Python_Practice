@@ -8,7 +8,7 @@ from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 from langchain.chains import SimpleSequentialChain
 
-OPENAI_API_KEY = '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'
+OPENAI_API_KEY = ''
 
 # LLM to get a name of a e-commerce store
 prompt = PromptTemplate.from_template("Suggest me name of the e-commerce store that sells {product}?")

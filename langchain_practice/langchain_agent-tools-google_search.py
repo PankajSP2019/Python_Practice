@@ -21,8 +21,8 @@ wait a few minutes for the action to propagate to our systems and retry.
 import os
 
 # ! Set environ variables for google search
-os.environ["GOOGLE_CSE_ID"] = "a151cf82b6c2b4c8c"
-os.environ["GOOGLE_API_KEY"] = "AIzaSyDpXVRV37-eb8X2iQFhwEnFAWevHGyeZE0"
+os.environ["GOOGLE_CSE_ID"] = ""
+os.environ["GOOGLE_API_KEY"] = "-"
 
 from langchain.tools import Tool
 from langchain.utilities import GoogleSearchAPIWrapper

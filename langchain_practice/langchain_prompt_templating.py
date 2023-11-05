@@ -7,8 +7,8 @@ from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 
-# OPENAI_API_KEY = "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"
-OPENAI_API_KEY = ''  # From HexFlow
+# OPENAI_API_KEY = ""
+OPENAI_API_KEY = ''  
 
 prompt = PromptTemplate.from_template("What is the capital of {place}?")  # here under {} this, will be pass by user
 
