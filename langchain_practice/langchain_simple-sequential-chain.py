@@ -8,7 +8,8 @@ from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 from langchain.chains import SimpleSequentialChain
 
-OPENAI_API_KEY = ''
+with open("C:\\Users\\ASUS\\Desktop\\office\\OpenAI API Key For me.txt") as f:
+    OPENAI_API_KEY = f.readlines()[0]
 
 # LLM to get a name of a e-commerce store
 prompt = PromptTemplate.from_template("Suggest me name of the e-commerce store that sells {product}?")

@@ -7,7 +7,8 @@ from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 
-OPENAI_API_KEY = ''
+with open("C:\\Users\\ASUS\\Desktop\\office\\OpenAI API Key For me.txt") as f:
+    OPENAI_API_KEY = f.readlines()[0]
 
 # This is an LLM chain to write a synopsis(summarizes the plot, main characters, locations, and text of a play) given title of a play(drama) and the era it is set in.
 
@@ -35,7 +36,7 @@ overall_chain = SequentialChain(
     chains=[synopsis_chain, review_chain],
     input_variables=["era", "title"],
     output_variables=['synopsis', 'review'],  # ? Define what will be out output
-    verbose=True
+    # verbose=True
 )
 
 # ? The input value will pass in dictionary

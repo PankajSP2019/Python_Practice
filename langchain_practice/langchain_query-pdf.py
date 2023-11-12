@@ -60,7 +60,7 @@ from langchain.llms import OpenAI
 llm = OpenAI(openai_api_key=OPENAI_API_KEY, temperature=0.3)
 chain = load_qa_chain(llm=llm, chain_type="stuff")
 
-query = "Summarize the document in 3 lines, with the main purpose  "
+query = "Summarize the objective  "
 docs = document_search.similarity_search(query)
 output = chain.run(input_documents=docs, question=query)
 print(output)
