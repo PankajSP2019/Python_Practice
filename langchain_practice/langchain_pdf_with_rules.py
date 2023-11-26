@@ -29,15 +29,13 @@ result_text = extract_text_from_pdf(pdf_path)
 # print(result_text)
 
 # ? Chains
-import openai
-import os
 from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 
 # Code generate chain
 llm = OpenAI(openai_api_key=OPENAI_API_KEY, temperature=0.7)
-code_generate_template = """Develop a program adhering to the specified rules in order to respond to the following query.
+code_generate_template = """Act as a program generator. Utilize the provided rules to create a program that accurately addresses the given query.
 
 Rules:
 {rules}
@@ -46,7 +44,9 @@ Query:
 {query}
 
 Generated Program:
-Implement the solution to the query with the following code:"""
+Below is the generated program designed to fulfill the requirements of the query: “””
+"""
+
 code_generate_prompt_template = PromptTemplate(input_variables=["rules", "query"], template=code_generate_template)
 code_generator_chain = LLMChain(llm=llm, prompt=code_generate_prompt_template, output_key="code_generator")
 
@@ -61,6 +61,7 @@ code_explain_chain = LLMChain(llm=llm, prompt=code_explain_prompt_template, outp
 
 # ? Overall Sequential Chain
 from langchain.chains import SequentialChain
+
 overall_chain = SequentialChain(
     chains=[code_generator_chain, code_explain_chain],
     input_variables=["rules", "query"],
@@ -68,9 +69,29 @@ overall_chain = SequentialChain(
     # verbose=True
 )
 
-instruction = input("-->>")
-output = overall_chain({'rules': result_text, 'query': instruction})
-for i in output:
-    print(output[i])
+# instruction = input("-->>")
+
+instruction_list = ["Suggest me a code sum of 2 numbers in java",
+                    "suggest me code in java for multiply two matrix.",
+                    "Who is the tallest man in the world?",
+                    "Generate a code sum 2numbers in javascript. "]
 
 
+# ? For Showing Message while sleep, Target this function.
+def show_message(message):
+    print(message)
+
+
+for i in range(len(instruction_list)):
+    print(f"------------------------------{i + 1}------------------------------")
+    output = overall_chain({'rules': result_text, 'query': instruction_list[i]})
+    for i in output:
+        print(output[i])
+    print(f"****************************************************************")
+    # ? For Showing Message while sleep
+    import time
+    import threading
+    message_thread = threading.Thread(target=show_message, args=("Working on Another Query, Please Wait...",))
+    message_thread.start()
+    time.sleep(10)
+    message_thread.join()
