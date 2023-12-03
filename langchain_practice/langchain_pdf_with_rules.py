@@ -24,7 +24,7 @@ def extract_text_from_pdf(pdf_path):
     return text.replace("\n", " ")
 
 
-pdf_path = "C:\\Users\\ASUS\\Desktop\\Langchain learning\\Rules_Document\\test.pdf"
+pdf_path = "C:\\Users\\ASUS\\Desktop\\Langchain learning\\Rules_Document\\test1.pdf"
 result_text = extract_text_from_pdf(pdf_path)
 # print(result_text)
 
@@ -35,7 +35,7 @@ from langchain.chains import LLMChain
 
 # Code generate chain
 llm = OpenAI(openai_api_key=OPENAI_API_KEY, temperature=0.7)
-code_generate_template = """Act as a program generator. Utilize the provided rules to create a program that accurately addresses the given query.
+code_generate_template = """Your task is to generate a program based on the provided rules, responding to the following query.
 
 Rules:
 {rules}
@@ -43,8 +43,8 @@ Rules:
 Query:
 {query}
 
-Generated Program:
-Below is the generated program designed to fulfill the requirements of the query: “””
+Program Output:
+The generated program for the given query is as follows:
 """
 
 code_generate_prompt_template = PromptTemplate(input_variables=["rules", "query"], template=code_generate_template)
@@ -74,7 +74,8 @@ overall_chain = SequentialChain(
 instruction_list = ["Suggest me a code sum of 2 numbers in java",
                     "suggest me code in java for multiply two matrix.",
                     "Who is the tallest man in the world?",
-                    "Generate a code sum 2numbers in javascript. "]
+                    "Generate a code sum 2numbers in javascript.",
+                    "Who is the Prime minister of England?"]
 
 
 # ? For Showing Message while sleep, Target this function.
