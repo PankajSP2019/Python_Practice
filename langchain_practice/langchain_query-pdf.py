@@ -26,7 +26,7 @@ from langchain.vectorstores import FAISS
 
 # ? Provide Path of PDF
 pdfreader = PdfReader(
-    "C:\\Users\\ASUS\\Desktop\\office\\Internship Report\\Final Internship Report-Updated.pdf")  # ? Path Of Pdf
+    "C:\\Users\\ASUS\\Downloads\\pankaj_kumar_das.pdf")  # ? Path Of Pdf
 
 # ? Read Text From PDF
 from typing_extensions import Concatenate
@@ -60,7 +60,8 @@ from langchain.llms import OpenAI
 llm = OpenAI(openai_api_key=OPENAI_API_KEY, temperature=0.3)
 chain = load_qa_chain(llm=llm, chain_type="stuff")
 
-query = "Summarize the objective  "
+query = "projects the cadidate have done" \
+        ""
 docs = document_search.similarity_search(query)
 output = chain.run(input_documents=docs, question=query)
 print(output)
